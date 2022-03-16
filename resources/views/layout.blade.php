@@ -44,12 +44,17 @@
       <header id="header">
          <div class="container">
             <div class="row" id="headwrap">
-               <div class="col-md-7 col-sm-6 slogan">
+               <div class="col-md-6 col-sm-6 slogan">
                   <img src="/image/logo_mephim.png" alt="" style="max-width:80px; height:50px">
                  
                   
                </div>
-               <div class="col-md-5 col-sm-6 halim-search-form hidden-xs">
+               <!-- <div class="col-md-5 col-sm-6 halim-search-form hidden-xs">
+                 <div><span>Đăng ký /</span><span>Đăng nhập</span></div>
+                 
+                  
+               </div> -->
+               <div class="col-md-3 col-sm-6 halim-search-form hidden-xs">
                   <div class="header-nav">
                      <div class="col-xs-12">
                         <form id="search-form-pc" name="halimForm" role="search" action="{{ route('web.search')}}" method="POST">
@@ -65,12 +70,18 @@
                      </div>
                   </div>
                </div>
-               <!-- <div class="col-md-4 hidden-xs">
-                  <div id="get-bookmark" class="box-shadow"><i class="hl-bookmark"></i><span> Bookmarks</span><span class="count">0</span></div>
-                  <div id="bookmark-list" class="hidden bookmark-list-on-pc">
-                     <ul style="margin: 0;"></ul>
-                  </div>
-               </div> -->
+              
+
+               <div class="col-md-3 hidden-xs">
+               @if(\Illuminate\Support\Facades\Auth::check())
+               <div id="get-bookmarks" class="box-shadow"><i ></i><a href="{{ route('admin.logout')}}"><span> Đăng xuất </span></a></div>
+                      @else
+                   
+                     <div id="get-bookmarks" class="box-shadow"><i ></i><a href="{{ route('admin.user.signup')}}"><span> Đăng ký /</span></a><a href="{{ route('admin.login')}}"><span>Đăng nhập</span></a></div>
+                     
+                     @endif
+               </div>
+               
             </div>
          </div>
       </header>
@@ -244,6 +255,14 @@
          #hide_float_left_m a {background: #0098D2;padding: 5px 15px 5px 15px;color: #FFF;font-weight: 700;}
          span.bannermobi2 img {height: 70px;width: 300px;}
          #hide_float_right a { background: #01AEF0; padding: 5px 5px 1px 5px; color: #FFF;float: left;}
+      </style>
+      <style>
+         #get-bookmarks{background:#224361;display:inline-block;line-height:20px;padding:6px 15px;border-radius:20px;color:#fff;cursor:pointer;transition:.4s all;margin-top:1px;margin-right:15px}
+         #get-bookmarks:hover{background:#337ab7}
+         /* #get-bookmarks span.count{background:#f11b1b;padding:3px 6px;color:#fff;font-size:13px;border-radius:20px;margin-left:10px} */
+        
+            
+       
       </style>
    </body>
 </html>

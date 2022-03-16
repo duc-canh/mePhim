@@ -59,4 +59,6 @@ class UserController extends Controller
         User::where('id',$id)->delete();
         return redirect()->route('admin.user.index')->with('success','delete successfully');
     }
+
+    
 }

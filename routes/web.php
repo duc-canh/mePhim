@@ -37,11 +37,16 @@ Route::post('addComment',[WebController::class,'addComment'])->name('web.addComm
 Route::prefix('admin')->group(function(){
     Route::get('login',[AuthController::class,'login'])->name('admin.login');
     Route::post('login',[AuthController::class,'checkLogin'])->name('admin.checkLogin');
+
+    Route::get('signup',[WebController::class,'signup'])->name('admin.user.signup');
+    Route::post('store',[UserController::class,'store'])->name('admin.user.store');
+
+    Route::get('logout',[AuthController::class,'logout'])->name('admin.logout');
 });
 
 Route::prefix('admin')->middleware('admin.login')->group(function(){
 
-    Route::get('logout',[AuthController::class,'logout'])->name('admin.logout');
+  
 
     Route::get('profile',[AuthController::class,'profile'])->name('admin.profile');
     Route::put('proflie',[AuthController::class,'update_profile'])->name('admin.update_profile');
@@ -110,7 +115,7 @@ Route::prefix('admin')->middleware('admin.login')->group(function(){
         Route::get('/',[UserController::class,'index'])->name('admin.user.index');
 
         Route::get('create',[UserController::class,'create'])->name('admin.user.create');
-        Route::post('store',[UserController::class,'store'])->name('admin.user.store');
+        
 
         Route::get('edit/{id}',[UserController::class,'edit'])->name('admin.user.edit');
         Route::put('update/{id}',[UserController::class,'update'])->name('admin.user.update');

@@ -120,4 +120,8 @@ class WebController extends Controller
           return response()->json(['success'=>'Form is successfully submitted!']);
       
     }
+
+    public function signup(){
+        return view('pages.signup');
+    }
 }

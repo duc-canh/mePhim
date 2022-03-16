@@ -20,7 +20,7 @@ class AdminLoginMiddleware
             if(Auth::user()->is_admin){
                 return $next($request);
             }
-            return redirect()->route('admin.login')->with('error','Permission denied');
+            return redirect()->route('web.home')->with('error','Permission denied');
         }
         return redirect()->route('admin.login')->with('error','login faile');
     }
