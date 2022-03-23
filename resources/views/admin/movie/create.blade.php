@@ -53,7 +53,11 @@ Movie Create
                             </div>
                             <div class="form-group">
                                 <label>Title</label>
-                                <input class="form-control" name="title" placeholder="Please Enter Username" />
+                                <input class="form-control" name="title" placeholder="Please Enter Title" />
+                            </div>
+                            <div class="form-group">
+                                <label>Tên Việt của phim</label>
+                                <input class="form-control" name="vn_title" placeholder="Please Enter VN Title" />
                             </div>
                             <div class="form-group">
                                 <label>Image</label>
@@ -77,6 +81,32 @@ Movie Create
                                 </label>
                             </div>
                             <div class="form-group">
+                                <label>Resolation</label>
+                                <label class="radio-inline">
+                                    <input name="resulation" value="1" checked="" type="radio">HD
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="resulation" value="0" type="radio">SD
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Subtitle</label>
+                                <label class="radio-inline">
+                                    <input name="subtitle" value="1" type="radio">Thuyết minh
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="subtitle" value="0" checked="" type="radio">Phụ đề
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Time</label>
+                                <input class="form-control" name="time" placeholder="Please Enter Time" />
+                            </div>
+                            <div class="form-group">
+                                <label>Trainer</label>
+                                <input class="form-control" name="trainer" placeholder="Please Enter trainer" />
+                            </div>
+                            <div class="form-group">
                                 <label>New Movie</label>
                                 <label class="radio-inline">
                                     <input name="movie_new" value="1" checked="" type="radio">New
@@ -94,7 +124,7 @@ Movie Create
                                     <input name="movie_highlight" value="0" type="radio">Normal
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-default">Country Add</button>
+                            <button type="submit" class="btn btn-default">Movie Add</button>
                             
                         <form>
                     </div>

@@ -57,6 +57,10 @@
                                 <input class="form-control" name="title" value="{{ $movie->title }}" />
                             </div>
                             <div class="form-group">
+                                <label>VN Title</label>
+                                <input class="form-control" name="vn_title" value="{{ $movie->vn_title }}" />
+                            </div>
+                            <div class="form-group">
                                 <label>Image</label>
                                 <input type="file" class="form-control" name="image" />
                                 <img src="{{ $movie->urlImage() }}" width="50px" height="auto">
@@ -77,6 +81,32 @@
                                 <label class="radio-inline">
                                     <input name="status" @if($movie->status == 0) checked @endif type="radio">Invisible
                                 </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Movie Resolation</label>
+                                <label class="radio-inline">
+                                    <input name="resulation" @if($movie->resulation == 1) checked @endif type="radio">HD
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="resulation" @if($movie->resulation == 0) checked @endif type="radio">SD
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Movie Subtitle</label>
+                                <label class="radio-inline">
+                                    <input name="subtitle" @if($movie->subtitle == 1) checked @endif type="radio">Thuyết minh
+                                </label>
+                                <label class="radio-inline">
+                                    <input name="subtitle" @if($movie->subtitle == 0) checked @endif type="radio">Phụ đề
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>Time</label>
+                                <input class="form-control" name="time" value="{{ $movie->time }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Trainer</label>
+                                <input class="form-control" name="trainer" value="{{ $movie->trainer }}" />
                             </div>
                             <div class="form-group">
                                 <label>New Movie</label>

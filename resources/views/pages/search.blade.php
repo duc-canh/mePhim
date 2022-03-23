@@ -16,12 +16,22 @@
                         <div class="halim-item">
                            <a class="halim-thumb" href="{{ route('web.movie',$res->slug)}}">
                               <figure><img class="lazy img-responsive" src="{{ $res->urlImage() }}" alt="BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO" title="{{ $res->title}}"></figure>
-                              <span class="status">TẬP 15</span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>Vietsub</span> 
+                              <span class="status">
+                              @if($res->resulation == 0) SD
+                                 @else
+                                 HD 
+                                 @endif
+                              </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                              @if($res->subtitle == 0) Phụ đề
+                                 @else
+                                 Thuyết minh
+                                 @endif
+                           </span> 
                               <div class="icon_overlay"></div>
                               <div class="halim-post-title-box">
                                  <div class="halim-post-title ">
                                     <p class="entry-title">{{ $res->title}}</p>
-                                    <p class="original_title">My Roommate Is a Gumiho</p>
+                                    <p class="original_title">{{ $res->vn_title}}</p>
                                  </div>
                               </div>
                            </a>

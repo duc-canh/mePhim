@@ -30,8 +30,6 @@ Movie List
                                 <th>Category</th>
                                 <th>Genre</th>
                                 <th>Country</th>
-                                <th>status</th>
-                                <th>views count</th>
                                 <th>New/Old</th>
                                 <th>Normal/Highlight</th>
                                 <th>release_year</th>
@@ -49,8 +47,6 @@ Movie List
                                 <td>{{ $movie->category->title}}</td>
                                 <td>{{ $movie->genre->title}}</td>
                                 <td>{{ $movie->country->title}}</td>
-                                <td>{{ $movie->status == 0 ? "invisible" : "visible" }}</td>
-                                <td>{{ $movie->views_count}}</td>
                                 <td>{{ $movie->movie_new == 0 ? "old" : "new" }}</td>
                                 <td>{{ $movie->movie_highlight == 0 ? "normal" : "highlight" }}</td>
                                 <td>{{ $movie->release_year }}</td>

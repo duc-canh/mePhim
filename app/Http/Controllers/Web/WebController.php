@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller;
 class WebController extends Controller
 {
     public function index(){
-        $phim_hots = Movie::where('movie_highlight',1)->where('status',1)->get();
+        $phim_hots = Movie::where('movie_highlight',1)->where('status',1)->orderBy('updated_at','DESC')->get();
         $categories = Category::orderBy('id','DESC')->where('status',1)->get();
         $genres = Genre::orderBy('id','DESC')->get();
         $movie_views = Movie::orderBy('views_count','DESC')->take(7)->get();
@@ -30,7 +30,7 @@ class WebController extends Controller
         $movie_views = Movie::orderBy('views_count','DESC')->take(7)->get();
 
         $cate_slug = Category::where('slug',$slug)->first();
-        $movies = Movie::where('category_id',$cate_slug->id)->paginate(40);
+        $movies = Movie::where('category_id',$cate_slug->id)->orderBy('updated_at','DESC')->paginate(40);
         return view('pages.category',compact('categories','genres','countries','cate_slug','movies','movie_views'));
     }
     public function genre($slug){
@@ -40,7 +40,7 @@ class WebController extends Controller
         $movie_views = Movie::orderBy('views_count','DESC')->take(7)->get();
 
         $genre_slug = Genre::where('slug',$slug)->first();
-        $movies = Movie::where('genre_id',$genre_slug->id)->paginate(1);
+        $movies = Movie::where('genre_id',$genre_slug->id)->orderBy('updated_at','DESC')->paginate(1);
         return view('pages.genre',compact('categories','genres','countries','genre_slug','movies','movie_views'));
     }
     public function country($slug){
@@ -50,18 +50,20 @@ class WebController extends Controller
         $movie_views = Movie::orderBy('views_count','DESC')->take(7)->get();
 
         $country_slug = Country::where('slug',$slug)->first();
-        $movies = Movie::where('country_id',$country_slug->id)->paginate(40);
+        $movies = Movie::where('country_id',$country_slug->id)->orderBy('updated_at','DESC')->paginate(40);
         return view('pages.country',compact('categories','genres','countries','country_slug','movies','movie_views'));
     }
     public function movie($slug){
         $categories = Category::orderBy('id','DESC')->get();
         $genres = Genre::orderBy('id','DESC')->get();
         $countries = Country::orderBy('id','DESC')->get();
+        $movie_views = Movie::orderBy('views_count','DESC')->take(7)->get();
+
         $movie = Movie::with('category','genre','country')->where('slug',$slug)->where('status',1)->first();
         $movie_related = Movie::with('category','genre','country')->where('category_id',$movie->category_id)
-        ->inRandomOrder()->whereNotIn('slug',[$slug])->get();
-        
-        return view('pages.movie',compact('categories','genres','countries','movie','movie_related'));
+        ->inRandomOrder()->get();
+       
+        return view('pages.movie',compact('categories','genres','countries','movie','movie_related','movie_views'));
     }
     public function watch($slug){
         $categories = Category::orderBy('id','DESC')->get();
@@ -71,7 +73,9 @@ class WebController extends Controller
 
         $movie_watch =  Movie::with('category','genre','country')->where('slug',$slug)->where('status',1)->first();
         $movie_related = Movie::with('category','genre','country')->where('category_id',$movie_watch->category_id)
-        ->inRandomOrder()->whereNotIn('slug',[$slug])->get();
+        ->inRandomOrder()->get();
+        // $movie_related = Movie::with('category','genre','country')->where('category_id',$movie_watch->category_id)
+        // ->inRandomOrder()->whereNotIn('slug',[$slug])->get();
         $movie_episodes = Episode::where('movie_id',$movie_watch->id)->orderBy('episodes','ASC')->get();
         $movie_watch->update([
             'views_count'=>$movie_watch->views_count+1
@@ -90,7 +94,7 @@ class WebController extends Controller
 
         $movie_watch =  Movie::with('category','genre','country')->where('slug',$slug)->where('status',1)->first();
         $movie_related = Movie::with('category','genre','country')->where('category_id',$movie_watch->category_id)
-        ->inRandomOrder()->whereNotIn('slug',[$slug])->get();
+        ->inRandomOrder()->get();
         $movie_episodes = Episode::where('movie_id',$movie_watch->id)->orderBy('episodes','ASC')->get();
         $movie_episode = $movie_watch->episodes->where('episodes',$episodes)->first();
        

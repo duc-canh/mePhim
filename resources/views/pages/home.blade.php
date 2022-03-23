@@ -21,12 +21,22 @@
                            <div class="halim-item">
                               <a class="halim-thumb" href="{{ route('web.movie',$phim_hot->slug)}}" title="{{ $phim_hot->title }}">
                                  <figure><img class="lazy img-responsive" src="{{ $phim_hot->urlImage() }}" alt="{{ $phim_hot->title }}" title="{{ $phim_hot->title }}"></figure>
-                                 <span class="status">HD</span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>Vietsub</span> 
+                                 <span class="status">
+                                 @if($phim_hot->resulation == 0) SD
+                                 @else
+                                 HD 
+                                 @endif
+                                 </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                 @if($phim_hot->subtitle == 0) Phụ đề
+                                 @else
+                                 Thuyết minh
+                                 @endif
+                              </span> 
                                  <div class="icon_overlay"></div>
                                  <div class="halim-post-title-box">
                                     <div class="halim-post-title ">
                                        <p class="entry-title">{{ $phim_hot->title }}</p>
-                                     
+                                       <p class="original_title">{{ $phim_hot->vn_title}}</p>
                                     </div>
                                  </div>
                               </a>
@@ -71,12 +81,22 @@
                         <div class="halim-item">
                            <a class="halim-thumb" href="{{ route('web.movie',$mov->slug)}}">
                               <figure><img class="lazy img-responsive" src="{{ $mov->urlImage() }}" alt="BẠN CÙNG PHÒNG CỦA TÔI LÀ GUMIHO" title="{{ $mov->title}}"></figure>
-                              <span class="status">TẬP 15</span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>Vietsub</span> 
+                              <span class="status">
+                                 @if($mov->resulation == 0) SD
+                                 @else
+                                 HD 
+                                 @endif
+                              </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                              @if($mov->subtitle == 0) Phụ đề
+                                 @else
+                                 Thuyết minh
+                                 @endif
+                              </span> 
                               <div class="icon_overlay"></div>
                               <div class="halim-post-title-box">
                                  <div class="halim-post-title ">
                                     <p class="entry-title">{{ $mov->title}}</p>
-                                    <p class="original_title">My Roommate Is a Gumiho</p>
+                                    <p class="original_title">{{ $mov->vn_title}}</p>
                                  </div>
                               </div>
                            </a>
@@ -118,7 +138,10 @@
                               <a href="{{ route('web.movie',$movie_view->slug)}}" title="{{ $movie_view->title}}">
                                  <div class="item-link">
                                     <img src="{{ $movie_view->urlImage() }}" class="lazy post-thumb" alt="{{ $movie_view->title}}" title="{{ $movie_view->title}}" />
-                                    <span class="is_trailer">Trailer</span>
+                                    <span class="is_trailer">@if($movie_view->subtitle == 0) Phụ đề
+                                 @else
+                                 Thuyết minh
+                                 @endif</span>
                                  </div>
                                  <p class="title">{{ $movie_view->title}}</p>
                               </a>

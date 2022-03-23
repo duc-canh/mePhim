@@ -14,9 +14,6 @@ class MovieController extends Controller
 {
     public function index(){
         $movies = Movie::paginate(10);
-       
-
-
         return view('admin.movie.list',compact('movies'));
     }
 
@@ -37,6 +34,9 @@ class MovieController extends Controller
             'movie_highlight'=>'required',
             'status'=>'required',
             'release_year'=>'required',
+            'resulation'=>'required',
+            'subtitle'=>'required',
+            'time'=>'required',
         ]);
         $slug = Str::slug($request->title);
         $checkSlug = Movie::where('slug',$slug)->first();
@@ -62,6 +62,7 @@ class MovieController extends Controller
         }
         Movie::create([
             'title'=>$request->title,
+            'vn_title'=>$request->vn_title,
             'description'=>$request->description,
             'image'=>$image,
             'slug'=>$slug,
@@ -69,6 +70,10 @@ class MovieController extends Controller
             'movie_new'=>$request->movie_new,
             'movie_highlight'=>$request->movie_highlight,
             'status'=>$request->status,
+            'resulation'=>$request->resulation,
+            'subtitle'=>$request->subtitle,
+            'time'=>$request->time,
+            'trainer'=>$request->trainer,
             'release_year'=>$request->release_year,
             'category_id'=>$request->category_id,
             'genre_id'=>$request->genre_id,
@@ -94,6 +99,7 @@ class MovieController extends Controller
             'movie_highlight'=>'required',
             'status'=>'required',
             'release_year'=>'required',
+            'time'=>'required',
         ]);
         $slug = Str::slug($request->title);
         $checkSlug = Movie::where('slug',$slug)->first();
@@ -120,12 +126,16 @@ class MovieController extends Controller
         $movie = Movie::find($id);
         $movie->update([
             'title'=>$request->title,
+            'vn_title'=>$request->vn_title,
             'description'=>$request->description,
             'image'=>isset($image) ? $image : $movie->image,
             'slug'=>$slug,
             'movie_new'=>$request->movie_new ? "0" : "1",
             'movie_highlight'=>$request->movie_highlight ? "0" : "1",
             'status'=>$request->status ? "0" : "1",
+            'resulation'=>$request->resulation ? "0" : "1",
+            'subtitle'=>$request->subtitle ? "0" : "1",
+            'time'=>$request->time,
             'release_year'=>$request->release_year,
             'category_id'=>$request->category_id,
             'genre_id'=>$request->genre_id,
@@ -136,7 +146,7 @@ class MovieController extends Controller
 
     public function delete($id){
         $movie = Movie::find($id);
-        if(!empty($movie->image)){
+        if(file_exists('image/post/'.$movie->image)){
             unlink('image/post/'.$movie->image);
         }
         $movie->delete();

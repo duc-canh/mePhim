@@ -9,6 +9,7 @@ class Movie extends Model
     protected $table = 'movies';
     protected $fillable = [
         'title',
+        'vn_title',
         'description',
         'image',
         'slug',
@@ -16,10 +17,15 @@ class Movie extends Model
         'movie_new',
         'movie_highlight',
         'status',
+        'resulation',
+        'subtitle',
+        'time',
+        'trainer',
         'release_year',
         'category_id',
         'genre_id',
         'country_id',
+        'updated_at',
     ];
     protected $timestamp = false;
 

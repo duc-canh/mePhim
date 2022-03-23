@@ -4,7 +4,14 @@
 @endsection
 
 @section('content')
+<style>
+   .fb-comments{
+      color: #000;
+      background-color:white;
+   }
+</style>
 <div class="container">
+
       <div class="row container" id="wrapper">
          <div class="halim-panel-filter">
             <div class="panel-heading">
@@ -96,49 +103,49 @@
                      </div>
                   </div>
                   <div class="clearfix"></div>
-                  <h3>Bình luận</h3>
-                  <div class="htmlwrap clearfix">
-                     <div id="lightout"></div>
-                     @foreach($comments as $comment)
-                     <div><span>{{ $comment->name}} : </span><span>{{ $comment->content}}</span></div>
-                     @endforeach
-                     {!! $comments->links() !!}
-                  </div>
-                  <h3>Để lại bình luận của bạn</h3>
+                 
+                  <h3 style="color:white">Để lại bình luận của bạn</h3>
                   <div class="htmlwrap clearfix">
                      <div id="lightout"></div>
                      <form id="addComment">
-                        @csrf
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Your Name</label>
-                              <input class="form-control" id="name" name="name" aria-describedby="emailHelp">
-                             
-                           </div>
-                           <div class="form-group">
-                              <label for="exampleInputPassword1">Content</label>
-                              <input name="content" class="form-control" id="content">
-                           </div>
-                           <div type="submit" id="submit" data-id="{{ $movie_watch->id }}" class="btn btn-primary" >Submit</div>
+                        @php
+                           $currentUrl = Request::url();
+                          
+                        @endphp
+                     
+                           <div width="100%" data-colorscheme="dark" class="fb-comments" data-href="{{ $currentUrl}}" data-width="" data-numposts="10"></div>
+                          
                      </form>
                   </div>
             </section>
             <section class="related-movies">
-            <div id="halim_related_movies-2xx" class="wrap-slider">
-            <div class="section-bar clearfix">
-            <h3 class="section-title"><span>CÓ THỂ BẠN MUỐN XEM</span></h3>
-            </div>
-            <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
+               <div id="halim_related_movies-2xx" class="wrap-slider">
+                  <div class="section-bar clearfix">
+                      <h3 class="section-title"><span>CÓ THỂ BẠN MUỐN XEM</span></h3>
+                  </div>
+                  <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
+              
             @foreach($movie_related as $mov_rela)
                         <article class="thumb grid-item post-38498">
                            <div class="halim-item">
                               <a class="halim-thumb" href="{{ route('web.movie',$mov_rela->slug)}}" title="Đại Thánh Vô Song">
                                  <figure><img class="lazy img-responsive" src="{{ $mov_rela->urlImage() }}" alt="{{ $mov_rela->title }}" title="{{ $mov_rela->title }}"></figure>
-                                 <span class="status">HD</span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>Vietsub</span> 
+                                 <span class="status">
+                                 @if($mov_rela->resulation == 0) SD
+                                 @else
+                                 HD 
+                                 @endif
+                                 </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                 @if($mov_rela->subtitle == 0) Phụ đề
+                                 @else
+                                 Thuyết minh
+                                 @endif
+                              </span> 
                                  <div class="icon_overlay"></div>
                                  <div class="halim-post-title-box">
                                     <div class="halim-post-title ">
                                        <p class="entry-title">{{ $mov_rela->title }}</p>
-                                       <!-- <p class="original_title">Monkey King: The One And Only</p> -->
+                                       <p class="original_title">{{ $mov_rela->vn_title}}</p>
                                     </div>
                                  </div>
                               </a>
@@ -146,16 +153,16 @@
                         </article>
                        @endforeach
            
-            </div>
+                  </div>
             <script>
                jQuery(document).ready(function($) {				
                var owl = $('#halim_related_movies-2');
                owl.owlCarousel({loop: true,margin: 4,autoplay: true,autoplayTimeout: 4000,autoplayHoverPause: true,nav: true,navText: ['<i class="hl-down-open rotate-left"></i>', '<i class="hl-down-open rotate-right"></i>'],responsiveClass: true,responsive: {0: {items:2},480: {items:3}, 600: {items:4},1000: {items: 4}}})});
             </script>
-            </div>
+               </div>
             </section>
          </main>
-        <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4">
+         <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4">
                <div id="halim_tab_popular_videos-widget-7" class="widget halim_tab_popular_videos-widget">
                   <div class="section-bar clearfix">
                      <div class="section-title">
@@ -180,7 +187,7 @@
                      <div role="tabpanel" class="tab-pane active halim-ajax-popular-post">
                         <div class="halim-ajax-popular-post-loading hidden"></div>
                         <div id="halim-ajax-popular-post" class="popular-post">
-                        @foreach($movie_views as $movie_view)
+                           @foreach($movie_views as $movie_view)
                            <div class="item post-37176">
                               <a href="{{ route('web.movie',$movie_view->slug)}}" title="{{ $movie_view->title}}">
                                  <div class="item-link">
@@ -207,41 +214,5 @@
             </aside>
       </div>
       </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-     $(document).ready(function() {
-      $('#addComment').on('submit',function(e){
-        e.preventDefault();
 
-        let name = $('#name').val();
-        let content = $('#content').val();
-        let movie_id = $('#submit').data("id");
-      
-
-        $.ajax({
-          url: "/addComment",
-          type:"POST",
-          data:{
-            "_token": "{{ csrf_token() }}",
-            name:name,
-            email:email,
-            movie_id:movie_id,
-          },
-          success:function(response){
-            console.log(response);
-            if (response) {
-              $('#success-message').text(response.success); 
-              $("#contactForm")[0].reset(); 
-            }
-          },
-          error: function(response) {
-            $('#name-error').text(response.responseJSON.errors.name);
-            $('#email-error').text(response.responseJSON.errors.email);
-        
-          
-           }
-         });
-        });
-    });
-</script>
 @endsection

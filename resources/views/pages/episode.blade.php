@@ -109,12 +109,22 @@
                            <div class="halim-item">
                               <a class="halim-thumb" href="{{ route('web.movie',$mov_rela->slug)}}" title="Đại Thánh Vô Song">
                                  <figure><img class="lazy img-responsive" src="{{ $mov_rela->urlImage() }}" alt="{{ $mov_rela->title }}" title="{{ $mov_rela->title }}"></figure>
-                                 <span class="status">HD</span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>Vietsub</span> 
+                                 <span class="status">
+                                 @if($mov_rela->resulation == 0) SD
+                                 @else
+                                 HD 
+                                 @endif
+                                 </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
+                                 @if($mov_rela->subtitle == 0) Phụ đề
+                                 @else
+                                 Thuyết minh
+                                 @endif
+                              </span> 
                                  <div class="icon_overlay"></div>
                                  <div class="halim-post-title-box">
                                     <div class="halim-post-title ">
                                        <p class="entry-title">{{ $mov_rela->title }}</p>
-                                       <!-- <p class="original_title">Monkey King: The One And Only</p> -->
+                                       <p class="original_title">{{ $mov_rela->vn_title}}</p>
                                     </div>
                                  </div>
                               </a>
@@ -161,7 +171,10 @@
                               <a href="{{ route('web.movie',$movie_view->slug)}}" title="{{ $movie_view->title}}">
                                  <div class="item-link">
                                     <img src="{{ $movie_view->urlImage() }}" class="lazy post-thumb" alt="{{ $movie_view->title}}" title="{{ $movie_view->title}}" />
-                                    <span class="is_trailer">Trailer</span>
+                                    <span class="is_trailer">@if($movie_view->subtitle == 0) Phụ đề
+                                 @else
+                                 Thuyết minh
+                                 @endif</span>
                                  </div>
                                  <p class="title">{{ $movie_view->title}}</p>
                               </a>
